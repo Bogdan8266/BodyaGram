@@ -178,6 +178,7 @@ import org.telegram.ui.DialogsActivity;
 import org.telegram.ui.Gifts.GiftSheet;
 import org.telegram.ui.GroupStickersActivity;
 import org.telegram.ui.LaunchActivity;
+import org.telegram.ui.MediaGalleryFragment;
 import org.telegram.ui.MessageSendPreview;
 import org.telegram.ui.MultiContactsSelectorBottomSheet;
 import org.telegram.ui.PhotoViewer;
@@ -2748,9 +2749,54 @@ public class ChatActivityEnterView extends FrameLayout implements
                     return super.dispatchTouchEvent(event);
                 }
             };
+            ImageView myServerButton = new ImageView(context);
+            myServerButton.setScaleType(ImageView.ScaleType.CENTER);
+            // Використовуємо той самий колір, що й у інших іконок
+            myServerButton.setColorFilter(new PorterDuffColorFilter(getThemedColor(Theme.key_glass_defaultIcon), PorterDuff.Mode.MULTIPLY));
+
+            // Заміни R.drawable.ic_ab_other на назву своєї іконки, якщо вона є
+            // Якщо немає, поки що залиш цю або msg_input_like для тесту
+            myServerButton.setImageResource(R.drawable.ic_ab_other);
+
+            // Ефект натискання (кружечок)
+            myServerButton.setBackground(Theme.createSelectorDrawable(getThemedColor(Theme.key_listSelector)));
+
+            // Додаємо кнопку.
+            // 48 (або 50) - це відступ справа, щоб кнопка не налізла на скріпку.
+            // DEFAULT_HEIGHT зазвичай це 48.
+            messageEditTextContainer.addView(myServerButton, LayoutHelper.createFrame(DEFAULT_HEIGHT, DEFAULT_HEIGHT, Gravity.BOTTOM | Gravity.RIGHT, 0, 0, 48, 0));
+
+            myServerButton.setOnClickListener(v -> {
+                // 1. Отримуємо ID поточного чату.
+                // В ChatActivity змінна зазвичай називається dialog_id
+                // Якщо ти вставляєш це в ChatActivityEnterView, там може бути access до parentFragment
+
+                long currentDialogId = 0;
+
+                // Спробуй один з цих варіантів (залежить від того, в якому файлі ти зараз):
+                // Варіант А (якщо ти в ChatActivity):
+                // currentDialogId = dialog_id;
+
+                // Варіант Б (якщо ти в ChatActivityEnterView або іншому View):
+                if (parentFragment instanceof ChatActivity) {
+                    currentDialogId = ((ChatActivity) parentFragment).getDialogId();
+                }
+
+                // 2. Створюємо наш фрагмент і передаємо ID
+                MediaGalleryFragment galleryFragment = new MediaGalleryFragment(currentDialogId);
+
+                // 3. Відкриваємо його (стандартний метод Telegram)
+                if (parentFragment != null) {
+                    parentFragment.presentFragment(galleryFragment);
+                } else {
+                    // Якщо доступу до parentFragment немає напряму, іноді використовують LaunchActivity
+                    // LaunchActivity.instance.presentFragment(galleryFragment);
+                    // Але краще через parentFragment.
+                }
+            });
             attachButton.setScaleType(ImageView.ScaleType.CENTER);
             attachButton.setColorFilter(new PorterDuffColorFilter(getThemedColor(Theme.key_glass_defaultIcon), PorterDuff.Mode.MULTIPLY));
-            attachButton.setImageResource(R.drawable.msg_input_attach2);
+            attachButton.setImageResource(R.drawable.msg_input_like);
             attachButton.setBackground(Theme.createSelectorDrawable(getThemedColor(Theme.key_listSelector)));
             messageEditTextContainer.addView(attachButton, LayoutHelper.createFrame(DEFAULT_HEIGHT, DEFAULT_HEIGHT, Gravity.BOTTOM | Gravity.RIGHT));
             attachButton.setOnClickListener(v -> {

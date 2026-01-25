@@ -5,6 +5,8 @@ apply plugin: 'com.android.library'
 repositories {
     mavenCentral()
     google()
+    maven { url 'https://jitpack.io' }
+
 }
 
 configurations {
@@ -55,7 +57,12 @@ dependencies {
 
     implementation "androidx.credentials:credentials:1.6.0-alpha04"
     implementation "androidx.credentials:credentials-play-services-auth:1.6.0-alpha04"
-
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+    implementation 'com.google.android.material:material:1.9.0' // Для ChipGroup
+    implementation 'com.github.yalantis:ucrop:2.2.8-native'
 //    implementation 'com.google.mlkit:translate:17.0.3'
 
     constraints {

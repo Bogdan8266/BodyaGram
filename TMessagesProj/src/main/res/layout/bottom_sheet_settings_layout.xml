@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/option_video_quality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Якість відео"
+        android:textSize="18sp"
+        android:padding="12dp"/>
+
+    <TextView
+        android:id="@+id/option_ip_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IP адреса сервера"
+        android:textSize="18sp"
+        android:padding="12dp"/>
+
+    <TextView
+        android:id="@+id/option_about_bodyagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Про додаток"
+        android:textSize="18sp"
+        android:padding="12dp"/>
+</LinearLayout>

@@ -394,6 +394,10 @@
 				  android:taskAffinity="${applicationId}.voip_feedback"
                   android:excludeFromRecents="true"
                 android:theme="@style/Theme.TMessages.TransparentWithAlerts"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <receiver
             android:name=".AutoMessageHeardReceiver"
