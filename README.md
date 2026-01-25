@@ -13,6 +13,7 @@
 <p>
 This is the tactical client that completes the ecosystem. It connects seamlessly with 
 <a href="https://github.com/Bogdan8266/BodyaSync-Compose">BodyaSync-Compose</a>, replaces the fallen 
+<a href="https://github.com/Bogdan8266/BodyaSync-Server">BodyaSync-Server</a>, Backend
 <a href="https://github.com/Bogdan8266/BodyaSync-Gallery"><s>BodyaSync-Gallery(Flutter)</s></a>, 
 and is the frontend for the <b><a href="https://github.com/Bogdan8266/BodyaGram">BodyaGram App</a></b>.
 </p>
