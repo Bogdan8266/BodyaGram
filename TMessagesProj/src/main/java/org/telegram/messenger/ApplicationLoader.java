@@ -29,8 +29,10 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.view.ViewGroup;
+import android.util.Log; // Import Log
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -274,6 +276,19 @@ public class ApplicationLoader extends Application {
             DownloadController.getInstance(a);
         }
         BillingController.getInstance().startConnection();
+
+        // Примусово вмикаємо налаштування "Фонове з'єднання"
+        try {
+            SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("Notifications", Activity.MODE_PRIVATE);
+            preferences.edit().putBoolean("pushConnection", true).apply();
+
+            // Кажемо системі запустити сервіс негайно
+            // Removed the direct startForegroundService/startService call from here.
+            // Instead, we call startPushService() which now handles the foreground service logic.
+            startPushService();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ApplicationLoader() {
@@ -341,29 +356,26 @@ public class ApplicationLoader extends Application {
         }
 
         applicationHandler = new Handler(applicationContext.getMainLooper());
-
-        AndroidUtilities.runOnUIThread(ApplicationLoader::startPushService);
+        startPushService();
+        // Removed: AndroidUtilities.runOnUIThread(ApplicationLoader::startPushService);
 
         LauncherIconController.tryFixLauncherIconIfNeeded();
         ProxyRotationController.init();
+
     }
 
     public static void startPushService() {
-        SharedPreferences preferences = MessagesController.getGlobalNotificationsSettings();
-        boolean enabled;
-        if (preferences.contains("pushService")) {
-            enabled = preferences.getBoolean("pushService", true);
-        } else {
-            enabled = MessagesController.getMainSettings(UserConfig.selectedAccount).getBoolean("keepAliveService", false);
-        }
-        if (enabled) {
-            try {
-                applicationContext.startService(new Intent(applicationContext, NotificationsService.class));
-            } catch (Throwable ignore) {
-
+        // Просто ігноруємо перевірку enabled і запускаємо сервіс
+        Log.d("ApplicationLoader", "startPushService() forced start");
+        try {
+            Intent intent = new Intent(applicationContext, NotificationsService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                applicationContext.startForegroundService(intent);
+            } else {
+                applicationContext.startService(intent);
             }
-        } else {
-            applicationContext.stopService(new Intent(applicationContext, NotificationsService.class));
+        } catch (Exception e) {
+            Log.e("ApplicationLoader", "Failed to start service", e);
         }
     }
 

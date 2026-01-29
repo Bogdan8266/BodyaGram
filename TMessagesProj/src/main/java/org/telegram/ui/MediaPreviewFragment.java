@@ -176,25 +176,33 @@ public class MediaPreviewFragment extends BaseFragment {
             setLoading(false);
 
             Uri sourceUri = Uri.fromFile(sourceFile);
-            // Файл, куди uCrop збереже результат
             File destFile = new File(getParentActivity().getCacheDir(), "cropped_" + filename);
             Uri destUri = Uri.fromFile(destFile);
 
             UCrop.Options options = new UCrop.Options();
+
+            // --- ГОЛОВНЕ ВИПРАВЛЕННЯ ---
+            // 1. Прибираємо setStatusBarColor(0xFF000000) - нехай система сама вирішує
+            // 2. Ставимо кольори інтерфейсу uCrop
             options.setToolbarColor(Theme.getColor(Theme.key_actionBarDefault));
             options.setStatusBarColor(Theme.getColor(Theme.key_actionBarDefault));
-            options.setActiveControlsWidgetColor(Theme.getColor(Theme.key_radioBackgroundChecked));
+            options.setToolbarWidgetColor(0xFFFFFFFF); // Білий текст кнопок
+            options.setActiveControlsWidgetColor(0xFF4081FA); // Синій акцент
 
-            // Запускаємо uCrop. Важливо використовувати start(activity, fragment)
+            // 3. Забороняємо ховати статус-бар (це часто вирішує проблему на Pixel)
+            // На жаль, в uCrop немає прямого методу "fitSystemWindows",
+            // але стандартні кольори зазвичай працюють краще.
+
+            options.setToolbarTitle("Редагування");
+            options.setHideBottomControls(false);
+            options.setShowCropGrid(true);
+            options.setFreeStyleCropEnabled(true);
+
             Intent cropIntent = UCrop.of(sourceUri, destUri)
                     .withOptions(options)
-                    .getIntent(getParentActivity()); // Отримати Intent для UCrop
+                    .getIntent(getParentActivity());
 
-            // Запускаємо Activity для отримання результату.
-            // Припускаємо, що BaseFragment має метод startActivityForResult,
-            // який коректно перенаправляє результат до onActivityResult цього фрагмента.
             startActivityForResult(cropIntent, UCrop.REQUEST_CROP);
-
         });
     }
 

@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.huawei.hms:push:6.5.0.300'
     implementation 'com.huawei.hms:maps:6.6.0.300'
     implementation 'com.huawei.hms:location:6.4.0.300'
+    implementation 'com.github.yalantis:ucrop:2.2.8-native'
 }
 
 android {
