@@ -1,39 +1,120 @@
-## Telegram messenger for Android
+<div align="center">
 
-[Telegram](https://telegram.org) is a messaging app with a focus on speed and security. It’s superfast, simple and free.
-This repo contains the official source code for [Telegram App for Android](https://play.google.com/store/apps/details?id=org.telegram.messenger).
+# ✈️ BODYAGRAM (Telegram Client Fork)
 
-## Creating your Telegram Application
+<!-- BADGES -->
+![Status](https://img.shields.io/badge/STATUS-OPERATIONAL-green?style=for-the-badge&logo=telegram)
+![Platform](https://img.shields.io/badge/PLATFORM-ANDROID-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![Base](https://img.shields.io/badge/BASED_ON-TELEGRAM_SOURCE-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
+![Integration](https://img.shields.io/badge/INTEGRATION-SERVER_UPLINK-red?style=for-the-badge&logo=server)
 
-We welcome all developers to use our API and source code to create applications on our platform.
-There are several things we require from **all developers** for the moment.
+<h3>The Specialized Communication Tool.</h3>
 
-1. [**Obtain your own api_id**](https://core.telegram.org/api/obtaining_api_id) for your application.
-2. Please **do not** use the name Telegram for your app — or make sure your users understand that it is unofficial.
-3. Kindly **do not** use our standard logo (white paper plane in a blue circle) as your app's logo.
-3. Please study our [**security guidelines**](https://core.telegram.org/mtproto/security_guidelines) and take good care of your users' data and privacy.
-4. Please remember to publish **your** code too in order to comply with the licences.
+<p>
+This is the tactical client that completes the ecosystem. It connects seamlessly with 
+<a href="https://github.com/Bogdan8266/BodyaSync-Compose">BodyaSync-Compose</a>, replaces the fallen 
+<a href="https://github.com/Bogdan8266/BodyaSync-Server">BodyaSync-Server</a>, Backend
+<a href="https://github.com/Bogdan8266/BodyaSync-Gallery"><s>BodyaSync-Gallery(Flutter)</s></a>, 
+and is the frontend for the <b><a href="https://github.com/Bogdan8266/BodyaGram">BodyaGram App</a></b>.
+</p>
 
-### API, Protocol documentation
+</div>
 
-Telegram API manuals: https://core.telegram.org/api
+---
 
-MTproto protocol manuals: https://core.telegram.org/mtproto
+## 💀 Mission Briefing
 
-### Compilation Guide
+**BodyaGram** is a modified fork of the official Telegram Android client. It looks like Telegram, it acts like Telegram, but under the hood, it packs a secret weapon.
 
-**Note**: In order to support [reproducible builds](https://core.telegram.org/reproducible-builds), this repo contains dummy release.keystore,  google-services.json and filled variables inside BuildVars.java. Before publishing your own APKs please make sure to replace all these files with your own.
+We didn't just change the colors. We integrated a **Direct Server Uplink**.
+While standard users are stuck uploading files from their phone's limited storage, **BodyaGram** lets you browse your **self-hosted server (BodyaSync)** directly inside the chat interface and send files that aren't even on your device.
 
-You will require Android Studio 3.4, Android NDK rev. 20 and Android SDK 8.1
+**The result:** You command terabytes of data from a device that fits in your pocket. Zero local storage used. Instant transmission via Userbot.
 
-1. Download the Telegram source code from https://github.com/DrKLO/Telegram ( git clone https://github.com/DrKLO/Telegram.git )
-2. Copy your release.keystore into TMessagesProj/config
-3. Fill out RELEASE_KEY_PASSWORD, RELEASE_KEY_ALIAS, RELEASE_STORE_PASSWORD in gradle.properties to access your  release.keystore
-4.  Go to https://console.firebase.google.com/, create two android apps with application IDs org.telegram.messenger and org.telegram.messenger.beta, turn on firebase messaging and download google-services.json, which should be copied to the same folder as TMessagesProj.
-5. Open the project in the Studio (note that it should be opened, NOT imported).
-6. Fill out values in TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java – there’s a link for each of the variables showing where and which data to obtain.
-7. You are ready to compile Telegram.
+---
 
-### Localization
+## 💥 The Arsenal (Custom Features)
 
-We moved all translations to https://translations.telegram.org/en/android/. Please use it.
+*   **Server-Side Picker:** A custom button right next to the standard attachment menu.
+*   **Remote File Access:** Browse your server's `Originals` folder instantly.
+*   **Smart Indicators:** Video files are clearly marked.
+*   **Auto-Chat Detection:** The app knows which chat you are in and tells the server exactly where to smuggle the file.
+*   **Zero-Traffic Upload:** The file goes from Server -> Telegram. Your phone is just the remote detonator.
+
+---
+
+## 📜 Rules of Engagement (Official Telegram Requirements)
+
+We play by the rules here. This is a fork of the official [Telegram App for Android](https://play.google.com/store/apps/details?id=org.telegram.messenger). To use this source code or build your own version, you must follow these directives:
+
+1.  **Get your credentials:** [Obtain your own `api_id`](https://core.telegram.org/api/obtaining_api_id) for your application. Don't use mine.
+2.  **Identity:** **Do not** use the name "Telegram" for your app. Make sure your users know it is unofficial. This is **BodyaGram**.
+3.  **Branding:** **Do not** use their standard logo (white paper plane in a blue circle). Get your own insignia.
+4.  **Security:** Study the [Security Guidelines](https://core.telegram.org/mtproto/security_guidelines). Take care of your users' data like it's your own.
+5.  **Open Source:** Remember to publish **your** code too. Comply with the licenses.
+
+**Documentation:**
+*   [Telegram API Manuals](https://core.telegram.org/api)
+*   [MTProto Protocol Manuals](https://core.telegram.org/mtproto)
+
+---
+
+## 🛠 Assembly Guide (Compilation)
+
+Want to build this weapon yourself? Here is the blueprint.
+
+**Note:** To support [reproducible builds](https://core.telegram.org/reproducible-builds), this repo contains dummy files. You need to replace them with real ammo before deployment.
+
+**Requirements:**
+*   Android Studio (Latest Stable)
+*   Android NDK (Check `build.gradle` for exact version)
+*   Android SDK
+
+### Step-by-Step Protocol:
+
+1.  **Acquire the Target:**
+    Download the source code.
+    ```bash
+    git clone https://github.com/Bogdan8266/BodyaGram.git
+    ```
+
+2.  **Secure the Keys:**
+    Copy your `release.keystore` into the `TMessagesProj/config` folder.
+
+3.  **Configure Access:**
+    Open `gradle.properties` and fill out these fields to access your keystore:
+    *   `RELEASE_KEY_PASSWORD`
+    *   `RELEASE_KEY_ALIAS`
+    *   `RELEASE_STORE_PASSWORD`
+
+4.  **Firebase Setup:**
+    *   Go to the [Firebase Console](https://console.firebase.google.com/).
+    *   Create two Android apps with IDs: `org.telegram.messenger` and `org.telegram.messenger.beta` (or your custom package name).
+    *   Turn on Firebase Messaging.
+    *   Download `google-services.json` and drop it into the `TMessagesProj` folder.
+
+5.  **Initialize:**
+    Open the project in Android Studio. **Do not import** — just Open.
+
+6.  **Hardcode the Variables:**
+    Locate `TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java`.
+    Fill out the values (API ID, API Hash). There are comments inside showing where to get the data.
+
+7.  **Compile:**
+    Hit "Build". If you followed instructions, you are ready to rock.
+
+---
+
+## 🌍 Localization
+
+We moved all translations to [translations.telegram.org/en/android/](https://translations.telegram.org/en/android/). Use it if you want to speak the local language.
+
+---
+
+<div align="center">
+
+**⚠️ SYSTEM STATUS: CUSTOM BUILD ⚠️**
+*Based on DrKLO/Telegram Source Code.*
+*Modified for the BodyaSync Ecosystem.*
+
+</div>
