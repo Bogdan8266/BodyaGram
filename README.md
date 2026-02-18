@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✈️ BODYAGRAM (Telegram Client Fork)
+# BODYAGRAM (Telegram Client Fork)
 
 <!-- BADGES -->
 ![Status](https://img.shields.io/badge/STATUS-OPERATIONAL-green?style=for-the-badge&logo=telegram)
