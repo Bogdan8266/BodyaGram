@@ -64,7 +64,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.util.Property;
 import android.util.TypedValue;
 import android.view.ActionMode;
@@ -184,7 +183,6 @@ import org.telegram.ui.MultiContactsSelectorBottomSheet;
 import org.telegram.ui.PhotoViewer;
 import org.telegram.ui.PremiumPreviewFragment;
 import org.telegram.ui.ProfileActivity;
-import org.telegram.ui.StakedDiceSheet;
 import org.telegram.ui.Stars.StarsController;
 import org.telegram.ui.Stars.StarsIntroActivity;
 import org.telegram.ui.StickersActivity;
@@ -4332,18 +4330,18 @@ public class ChatActivityEnterView extends FrameLayout implements
                 }
                 return;
             }
-            if (AndroidUtilities.isWebAppLink(botMenuWebViewUrl)) {
-                Browser.Progress progress = new Browser.Progress();
-                progress.onEnd(() -> {
-                    AndroidUtilities.runOnUIThread(() -> {
-                        if (botCommandsMenuButton != null) {
-                            botCommandsMenuButton.setOpened(false);
-                        }
-                    });
-                });
-                Browser.openAsInternalIntent(getContext(), botMenuWebViewUrl, false, false, progress);
-                return;
-            }
+//            if (AndroidUtilities.isWebAppLink(botMenuWebViewUrl)) {
+//                Browser.Progress progress = new Browser.Progress();
+//                progress.onEnd(() -> {
+//                    AndroidUtilities.runOnUIThread(() -> {
+//                        if (botCommandsMenuButton != null) {
+//                            botCommandsMenuButton.setOpened(false);
+//                        }
+//                    });
+//                });
+//                Browser.openAsInternalIntent(getContext(), botMenuWebViewUrl, false, false, progress);
+//                return;
+//            }
             final TLRPC.User bot = MessagesController.getInstance(currentAccount).getUser(dialog_id);
             final String restriction_reason = MessagesController.getInstance(currentAccount).getRestrictionReason(bot == null ? null : bot.restriction_reason);
             if (!TextUtils.isEmpty(restriction_reason)) {
@@ -13579,6 +13577,7 @@ public class ChatActivityEnterView extends FrameLayout implements
         public final Theme.ResourcesProvider resourcesProvider;
 
         public int resId;
+        public boolean newCounterPos;
 
         private Drawable drawable;
         private Drawable inactiveDrawable;
@@ -13646,7 +13645,7 @@ public class ChatActivityEnterView extends FrameLayout implements
         }
 
         private int circleSize = -1;
-        public void setCircleSize(int size) {
+        public void setCircleSize(int size, int dp) {
             this.circleSize = size;
         }
         public int getCircleSize() {
@@ -13970,7 +13969,7 @@ public class ChatActivityEnterView extends FrameLayout implements
             btn.setStarsPrice(starsPrice, messagesCount);
             btn.open.force(open.get());
             btn.animatedPriceVisible.force(animatedPriceVisible.get());
-            btn.setCircleSize(circleSize);
+            btn.setCircleSize(circleSize, dp(38));
             btn.setCirclePadding(circlePadX, circlePadY);
         }
 
