@@ -113,7 +113,7 @@ We moved all translations to [translations.telegram.org/en/android/](https://tra
 
 <div align="center">
 
-**⚠️ SYSTEM STATUS: CUSTOM BUILD ⚠️**
+**⚠️ SYSTEM STATUS: CUSTOM BUILD ⚠️ **
 *Based on DrKLO/Telegram Source Code.*
 *Modified for the BodyaSync Ecosystem.*
 
